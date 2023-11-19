@@ -122,16 +122,16 @@ it('Test case for creating another issue based on the provided template', () => 
   });
 });
 
-it('Random data plugin issue creation', () => {
+const randomDescription = faker.lorem.paragraph();
+const randomTitle = faker.random.word();
+it.only('Random data plugin issue creation', () => {
   //System finds modal for creating issue and does next steps inside of it
   cy.get('[data-testid="modal:issue-create"]').within(() => {
     
     // Modifying description with random data
-    const randomDescription = faker.lorem.paragraph();
     cy.get('.ql-editor').type(randomDescription);
 
     // Modifying title with random data
-    const randomTitle = faker.random.word();
     cy.get('input[name="title"]').type(randomTitle);
 
     //Selecting Baby Yoda from reporter dropdown
@@ -161,13 +161,14 @@ it('Random data plugin issue creation', () => {
 
   //Assert than only one list with name Backlog is visible and do steps inside of it
   cy.get('[data-testid="board-list:backlog').should('be.visible').and('have.length', '1').within(() => {
-    //Assert that this list contains 5 issues and first element with tag p has specified text
+    //Assert that this list contains 5 issues and first element with tag p 
     cy.get('[data-testid="list-issue"]')
         .should('have.length', '5')
         .first()
         .find('p')
+        .contains(randomTitle)
     //Assert that correct avatar and type icon are visible
-    cy.get('[data-testid="avatar:Pickle Rick"]').should('be.visible');
+    cy.get('[data-testid="avatar:Baby Yoda"]').should('be.visible');
     cy.get('[data-testid="icon:task"]').should('be.visible');
   });
 });
