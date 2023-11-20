@@ -124,7 +124,7 @@ it('Test case for creating another issue based on the provided template', () => 
 
 const randomDescription = faker.lorem.paragraph();
 const randomTitle = faker.random.word();
-it.only('Random data plugin issue creation', () => {
+it('Random data plugin issue creation', () => {
   //System finds modal for creating issue and does next steps inside of it
   cy.get('[data-testid="modal:issue-create"]').within(() => {
     
