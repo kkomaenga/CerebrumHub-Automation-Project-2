@@ -64,7 +64,7 @@ describe('Issue details editing', () => {
   const expectedLength = 5;
   let priorityValuesArray = [];
 
-  it.only('Test case 1: Check Priority Dropdown Values', () => {
+  it('Test case 1: Check Priority Dropdown Values', () => {
     getIssueDetailsModal().within(() => {
       cy.get('[data-testid="select:priority"]').click(); 
 
@@ -83,6 +83,15 @@ describe('Issue details editing', () => {
 
       cy.log('Final array:', priorityValuesArray);
     });
+  });
+});
+
+it('Test case 2: Check Reporter Name Characters', () => {
+
+  cy.get('[data-testid="select:reporter"] [data-testid="avatar:Baby Yoda"] + div').invoke('text').then((reporterName) => {
+    expect(reporterName.trim()).to.match(/^[A-Za-z\s]+$/);
+
+    cy.log('Reporter Name:', reporterName.trim());
   });
 });
 

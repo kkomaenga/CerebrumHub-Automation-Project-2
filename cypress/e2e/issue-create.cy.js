@@ -172,4 +172,35 @@ it('Random data plugin issue creation', () => {
     cy.get('[data-testid="icon:task"]').should('be.visible');
   });
 });
+
+it('Test case 3: Verify Removal of Unnecessary Spaces', () => {
+  const title = '   Hello    world!   ';
+
+  cy.get('[data-testid="modal:issue-create"]').within(() => {
+    cy.get('.ql-editor').type('test_description');
+
+    cy.get('input[name="title"]').type(title);
+    cy.get('button[type="submit"]').click();
+  });
+  cy.get('[data-testid="modal:issue-create"]').should('not.exist');
+  cy.contains('Issue has been successfully created.').should('be.visible');
+
+  cy.reload();
+  cy.contains('Issue has been successfully created.').should('not.exist');
+
+  const trimmedTitle = title.trim();
+  
+  cy.log(`Original Title: "${title}"`);
+  cy.log(`Trimmed Title: "${trimmedTitle}"`);
+
+  cy.get('[data-testid="list-issue"]')
+  .first()
+  .find('p')
+  .should(($p) => {
+    const text = $p.text().trim();
+    expect(text).to.equal(trimmedTitle);
+  });
+  });
 });
+
+
