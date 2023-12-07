@@ -60,6 +60,31 @@ describe('Issue details editing', () => {
       cy.get('.ql-snow').should('have.text', description);
     });
   });
+  
+  const expectedLength = 5;
+  let priorityValuesArray = [];
+
+  it.only('Test case 1: Check Priority Dropdown Values', () => {
+    getIssueDetailsModal().within(() => {
+      cy.get('[data-testid="select:priority"]').click(); 
+
+    cy.get('[data-testid^="select-option:"]').first().invoke('text').then((initialPriority) => {
+      priorityValuesArray.push(initialPriority.trim());
+    });
+
+    cy.get('[data-testid^="select-option:"]').each((priorityOption) => {
+      cy.wrap(priorityOption).invoke('text').then((priorityValue) => {
+        priorityValuesArray.push(priorityValue.trim());
+
+        cy.log(`Added value: ${priorityValue.trim()}, Length of array: ${priorityValuesArray.length}`);
+      });
+    }).then(() => {
+      cy.wrap(priorityValuesArray).should('have.length', expectedLength);
+
+      cy.log('Final array:', priorityValuesArray);
+    });
+  });
+});
 
   const getIssueDetailsModal = () => cy.get('[data-testid="modal:issue-details"]');
 });

@@ -102,7 +102,7 @@ describe('Time-tracking functionality', () => {
                 .first()
                 .click()
                 .type('9');
-            //adding Remaining time
+            //adding Remaining Time
             Estimation()
                 .eq(1).click()
                 .type('1');
