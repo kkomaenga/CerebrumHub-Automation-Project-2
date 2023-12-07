@@ -6,7 +6,7 @@ describe('Time-tracking functionality', () => {
     const getIssueDetailsModal = () => cy.get('[data-testid="modal:issue-details"]');
     const Estimation = () => cy.get('[placeholder="Number"]');
     const EstimatedTime = () => cy.get('.sc-rBLzX.irwmBe div:last-child');
-    const TimeLoggingButton = () => cy.get('.sc-bMvGRv.IstSR');
+    const TimeLoggingButton = () => cy.get('[data-testid="icon:stopwatch"]');
     const TrackingModal = () => cy.get('[data-testid="modal:tracking"]');
     const LoggedTime = () => cy.get('.sc-rBLzX.irwmBe div:first-child');
 
